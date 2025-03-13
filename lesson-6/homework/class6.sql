@@ -61,7 +61,7 @@ right join Departments d
  on e.DepartmentID = d.DepartmentID
 
  --4.FULL OUTER JOIN
- --Write a query to retrieve all employees and all departments, even if there’s no match between them.
+ --Write a query to retrieve all employees and all departments, even if thereï¿½s no match between them.
 select e.EmployeeID, e.Name, d.DepartmentName from Employees e
 full join Departments d
 on e.DepartmentID = d.DepartmentID
@@ -80,12 +80,9 @@ cross join
 Projects;
 
 --7.MULTIPLE JOINS
---Write a query to get a list of employees with their department names and assigned project names. Include employees even if they don’t have a project.
+--Write a query to get a list of employees with their department names and assigned project names. Include employees even if they donï¿½t have a project.
 select e.Name, d.DepartmentName, p.ProjectName from Employees e
 join Departments d
 on e.DepartmentID = d.DepartmentID
 join Projects p
 on e.EmployeeID=p.EmployeeID;
-select * from Employees;
-select * from Departments;
-select * from Projects;
