@@ -1,35 +1,20 @@
-create database class13;
+use class10;
 go
-use class13;
-go
+drop table if exists Shipments;
+CREATE TABLE Shipments (
+    N INT PRIMARY KEY,
+    Num INT
+);
 
-declare @InputDate date ='2025-03-14';
-;with cte as(
-	 select 
-		DATEFROMPARTS(Year(@InputDate), Month(@InputDate), 1) as [Date],
-		DATENAME(Weekday, DATEFROMPARTS(Year(@InputDate), Month(@InputDate), 1)) as WeekDayName,
-		DATEPART(Weekday, DATEFROMPARTS(Year(@InputDate), Month(@InputDate), 1)) as WeekdayNum,
-		1 as weeknumber
-		Union all
+INSERT INTO Shipments (N, Num) VALUES
+(1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1),
+(9, 2), (10, 2), (11, 2), (12, 2), (13, 2), (14, 4), (15, 4), 
+(16, 4), (17, 4), (18, 4), (19, 4), (20, 4), (21, 4), (22, 4), 
+(23, 4), (24, 4), (25, 4), (26, 5), (27, 5), (28, 5), (29, 5), 
+(30, 5), (31, 5), (32, 6), (33, 7);
 
-		select DATEADD(day, 1, [date]),
-		DATENAME(weekday, DateAdd(day, 1, [date])),
-		DATEPART(weekday, DATEADD(day, 1, [date])),
-		case 
-			when datePart(weekday, DATEADD(day, 1, [date]))>weekdayNum then weeknumber else weeknumber+1
-		end
-		from cte
-		where [date]<EOMONTH(@inputdate)
+select * from Shipments;
 
-
-)
-select 
-max(case when weekdayname = 'Sunday' then day(date) end) as Sunday,
-max(case when weekdayname = 'Monday' then day(date) end) as Monday,
-max(case when weekdayname = 'Tuesday' then day(date) end) as Tuesday,
-max(case when weekdayname = 'Wednesday' then day(date) end) as Wednesday,
-max(case when weekdayname = 'Thursday' then day(date) end) as Thursday,
-max(case when weekdayname = 'Friday' then day(date) end) as Friday,
-max(case when weekdayname = 'Saturday' then day(date) end) as Saturday
-from cte
-group by weeknumber
+declare @alldays int =40;
+select iif(@alldays%2=0, (select avg(Num) from Shipments where N=@alldays/2-7 or N=(@alldays/2+1)-7), 
+(select Num from Shipments where N=(@alldays+1)/2-7))
