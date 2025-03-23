@@ -106,4 +106,4 @@ SELECT DISTINCT Category, MAX(Price) as MostExpensiveProducts,
 IIF(sum(Stock)=0, 'Out of Stock', IIF(sum(Stock) between 1 and 10, 'Low Stock', 'In Stock')) as Inventory_status
 FROM Products
 GROUP BY Category
-ORDER BY MostExpensiveProducts DESC; 
+ORDER BY MostExpensiveProducts DESC 
